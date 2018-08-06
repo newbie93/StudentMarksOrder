@@ -1,6 +1,7 @@
 package bootcamp.graph;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 public class Student implements Comparable<Student> {
 	public String name;
@@ -50,16 +51,53 @@ public class Student implements Comparable<Student> {
 		al2.add(6);
 		al2.add(7);
 		Student s3 = new Student("b",al2);
-		Student s[]=new Student[3];
-		s[0]=s1;
-		s[1]=s3;
-		s[2]=s2;
-		Arrays.sort(s);
-		for(Student students:s)
+		ArrayList<Student> studentlist = new ArrayList<Student>();
+		studentlist.add(s1);
+		studentlist.add(s3);
+		studentlist.add(s2);
+		HashSet<String> hs=new HashSet<String>();
+	
+		for(int i=0;i<studentlist.size();i++)
 		{
-			System.out.println(students.name);
+			for(int j=0;j<studentlist.size();j++)
+			{
+				if(studentlist.get(i).compareTo(studentlist.get(j)) <0)
+				{  
+					String s=studentlist.get(i).name+studentlist.get(j).name;
+					hs.add(s);
+				}
+			}
 		}
-		
+		HashSet<String> hset = new HashSet<String>();
+		for(String s:hs)
+		{
+			hset.add(s);
+			//System.out.println(s);
+		}
+		for(String s:hs)
+		{
+			for(String str1: hs)
+			{
+				if(s!=str1)
+				{
+					char a[] = s.toCharArray();
+					char b[] = str1.toCharArray();
+					if(a[1] == b[0])
+					{
+						char newstr[]={a[0],b[1]};
+						String toberemoved=new String(newstr);
+						if(hset.contains(toberemoved))
+						{
+							hset.remove(toberemoved);
+						}
+					}
+				}
+			}
+		}
+		for(String s:hset)
+		{
+			System.out.println(s);
+		}
 		
 	}
 	
